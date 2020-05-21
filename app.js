@@ -29,7 +29,7 @@ const isAuthenticated = async (req, res, next) => {
     next();
 };
 
-const ssoServerJWTURL = `${ssoURL}/verifytoken`;
+const ssoServerJWTURL = `${ssoURL}/verifykey`;
 const url = require('url');
 const axios = require('axios');
 const fs = require('fs');
@@ -47,14 +47,14 @@ const verifyJwtToken = async (token) => {
 };
 const checkSSORedirect = () => {
     return async function (req, res, next) {
-        // check if the req has the queryParameter as ssoToken and who is the referer.
-        const { ssoToken } = req.query;
-        if (ssoToken != null) {
-            // to remove the ssoToken in query parameter redirect.
+        // check if the req has the queryParameter as ssoKey and who is the referer.
+        const { ssoKey } = req.query;
+        if (ssoKey != null) {
+            // to remove the ssoKey in query parameter redirect.
             const redirectURL = url.parse(req.url).pathname;
 
             try {
-                const response = await axios.get(`${ssoServerJWTURL}?ssoToken=${ssoToken}`, {
+                const response = await axios.get(`${ssoServerJWTURL}?ssoKey=${ssoKey}`, {
                     headers: {
                         Authorization: 'Bearer 8888',
                     },
