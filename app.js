@@ -60,6 +60,7 @@ const checkSSORedirect = () => {
                     },
                 });
                 const { token } = response.data;
+                console.log('---app_token---:', url, response.data);
                 const decoded = await verifyJwtToken(token);
                 console.log('---app_token---:', token);
                 res.cookie('app_token', token, { maxAge: 2 * 60 * 1000 });
